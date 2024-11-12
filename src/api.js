@@ -1,10 +1,10 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const API_BASE_URL = 'http://20.116.216.53:5000';
 const MODEL_ID = 'Abiggj99/stock-summary-model'; // Replace with your specific model ID
 const HUGGING_FACE_API_KEY = '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';
 
-const generatePrediction = async (textInput, lastRealOhlcv) => {
+export const generatePrediction = async (textInput, lastRealOhlcv) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/generate`, {
       text_input: textInput,
@@ -17,7 +17,7 @@ const generatePrediction = async (textInput, lastRealOhlcv) => {
   }
 };
 
-const getOverviewFromHuggingFace = async (ohlcvData, retries = 3) => {
+export const getOverviewFromHuggingFace = async (ohlcvData, retries = 3) => {
   try {
     const response = await fetch(`https://api-inference.huggingface.co/models/${MODEL_ID}`, {
       method: 'POST',
@@ -52,7 +52,7 @@ const getOverviewFromHuggingFace = async (ohlcvData, retries = 3) => {
   }
 };
 
-const pingServer = async () => {
+export const pingServer = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/ping`);
     return response.data;
@@ -60,10 +60,4 @@ const pingServer = async () => {
     console.error("Error pinging server:", error);
     throw error;
   }
-};
-
-module.exports = {
-  generatePrediction,
-  getOverviewFromHuggingFace,
-  pingServer,
 };

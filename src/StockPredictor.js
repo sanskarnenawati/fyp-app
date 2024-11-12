@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { generatePrediction, getOverviewFromHuggingFace, pingServer } from './api.mjs';
+import { generatePrediction, getOverviewFromHuggingFace, pingServer } from './api.js';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 

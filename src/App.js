@@ -1,7 +1,6 @@
-const React = require('react');
-const { useEffect } = React;
-const StockPredictor = require('./StockPredictor.mjs');
-const { pingServer } = require('./api.mjs');
+import React, { useEffect } from 'react';
+import StockPredictor from './StockPredictor.js';
+import { pingServer } from './api.js';
 
 function App() {
   useEffect(() => {
@@ -23,4 +22,4 @@ function App() {
   );
 }
 
-module.exports = App;
+export default App;
