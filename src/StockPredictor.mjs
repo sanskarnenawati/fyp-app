@@ -1,8 +1,7 @@
-const React = require('react');
-const { useState, useEffect } = React;
-const { generatePrediction, getOverviewFromHuggingFace, pingServer } = require('./api.mjs');
-const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = require('recharts');
-const axios = require('axios');
+import React, { useState, useEffect } from 'react';
+import { generatePrediction, getOverviewFromHuggingFace, pingServer } from './api.mjs';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
 const API_BASE_URL = 'http://20.116.216.53:5000';
 
@@ -98,8 +97,7 @@ const StockPredictor = () => {
         <div className="mt-10">
           <h2 className="text-2xl font-bold mb-6 text-blue-800">Generated OHLCV Data</h2>
           <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={generatedOhlcv.map((value, i) => ({ name: columnNames[i] || `Point ${i + 1}`, value }))}>
-              <XAxis dataKey="name" tick={{ fill: '#4b5563' }} />
+          <LineChart data={generatedOhlcv.map((value, i) => ({ name: columnNames[i] || `Point ${i + 1}`, value }))}>              <XAxis dataKey="name" tick={{ fill: '#4b5563' }} />
               <YAxis tick={{ fill: '#4b5563' }} />
               <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
               <Tooltip
@@ -133,4 +131,4 @@ const StockPredictor = () => {
   );
 };
 
-module.exports = StockPredictor;
+export default StockPredictor;
