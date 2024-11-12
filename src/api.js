@@ -28,11 +28,9 @@ export const getOverviewFromHuggingFace = async (ohlcvData, retries = 3) => {
       body: JSON.stringify({ inputs: ohlcvData }),
     });
     const data = await response.json();
-    console.log(data);
 
     if (response.status === 503 && retries > 0) {  // 503 indicates model is loading
       const waitTime = data.estimated_time * 1000 || 20000; // Default to 20s if no estimate
-      console.log(`Model loading. Retrying in ${waitTime / 1000} seconds...`);
       await new Promise((resolve) => setTimeout(resolve, waitTime));
       return getOverviewFromHuggingFace(ohlcvData, retries - 1);
     }

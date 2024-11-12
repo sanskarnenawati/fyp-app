@@ -7,7 +7,6 @@ function App() {
     const checkServer = async () => {
       try {
         await pingServer();
-        console.log("Server is up!");
       } catch {
         console.error("Server is down!");
       }

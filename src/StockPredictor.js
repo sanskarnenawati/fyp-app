@@ -56,9 +56,7 @@ const StockPredictor = () => {
       const ohlcvString = `Generate overview for the stock values:\n${labeledData}`;
 
       setLlmLoading(true);
-      console.log("Waiting for LLM response...");
       const llmSummary = await getOverviewFromHuggingFace(ohlcvString);
-      console.log(llmSummary);
       setSummary(llmSummary);
       setLlmLoading(false);
 
