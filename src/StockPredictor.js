@@ -3,7 +3,7 @@ import { generatePrediction, getOverviewFromHuggingFace, pingServer } from './ap
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://20.116.216.53:5000';
+const API_BASE_URL = '/api';
 
 const StockPredictor = () => {
   const [textInput, setTextInput] = useState('');

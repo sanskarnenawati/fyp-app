@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://20.116.216.53:5000';
+const API_BASE_URL = '/api';
 const MODEL_ID = 'Abiggj99/stock-summary-model'; // Replace with your specific model ID
 const HUGGING_FACE_API_KEY = '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';
 
