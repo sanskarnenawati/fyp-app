@@ -59,3 +59,22 @@ export const pingServer = async () => {
     throw error;
   }
 };
+
+export const getOverviewFromHuggingFacee = async (text) => {
+  try {
+      // Fetch the JSON file containing responses
+      const response = await fetch('/responses.json');
+      const responses = await response.json();
+      
+      // Randomly select a response
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      
+      // Simulate a delay to mimic HuggingFace response time
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      return randomResponse;
+  } catch (error) {
+      console.error("Error fetching generic responses:", error);
+      return "An error occurred while generating the summary.";
+  }
+};

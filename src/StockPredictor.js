@@ -56,7 +56,7 @@ const StockPredictor = () => {
       const ohlcvString = `Generate overview for the stock values:\n${labeledData}`;
 
       setLlmLoading(true);
-      const llmSummary = await getOverviewFromHuggingFace(ohlcvString);
+      const llmSummary = await getOverviewFromHuggingFacee(ohlcvString);
       setSummary(llmSummary);
       setLlmLoading(false);
 
