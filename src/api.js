@@ -6,7 +6,7 @@ const HUGGING_FACE_API_KEY = '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';
 
 export const generatePrediction = async (textInput, lastRealOhlcv) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/generate`, {
+    const response = await axios.post(`http://20.116.216.53:5000/generate`, {
       text_input: textInput,
       last_real_ohlcv: lastRealOhlcv,
     });
@@ -52,7 +52,7 @@ export const getOverviewFromHuggingFace = async (ohlcvData, retries = 3) => {
 
 export const pingServer = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/ping`);
+    const response = await axios.get(`http://20.116.216.53:5000/ping`);
     return response.data;
   } catch (error) {
     console.error("Error pinging server:", error);
