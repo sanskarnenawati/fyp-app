@@ -17,7 +17,7 @@ const StockPredictor = () => {
   useEffect(() => {
     const fetchLastEntry = async () => {
       try {
-        const response = await axios.get(`http://20.116.216.53:5000/last_entry`);
+        const response = await axios.get(`${API_BASE_URL}/last_entry`);
         setLastRealOhlcv(response.data.last_ohlcv || []);
         setColumnNames(response.data.column_names || []);
       } catch (error) {
