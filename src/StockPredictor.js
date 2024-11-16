@@ -43,7 +43,7 @@ const StockPredictor = () => {
         console.error("Error: lastRealOhlcv is empty or invalid");
         return;
       }
-      
+
       await pingServer();
 
       const generatedValues = await generatePrediction(textInput, lastRealOhlcv);
@@ -59,7 +59,6 @@ const StockPredictor = () => {
       const llmSummary = await getOverviewFromHuggingFacee(ohlcvString);
       setSummary(llmSummary);
       setLlmLoading(false);
-
     } catch (error) {
       console.error("Prediction or summary generation failed:", error);
       setLlmLoading(false);
@@ -69,33 +68,45 @@ const StockPredictor = () => {
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-8 text-blue-800 text-center">Stock Predictor</h1>
-      
-      <div className="flex flex-col md:flex-row gap-6">
+      <h1 className="text-3xl font-extrabold mb-8 text-blue-800 text-center">Craftrade</h1>
+
+      <div className="flex flex-col items-center gap-6">
         <textarea
           value={textInput}
           onChange={handleInputChange}
           placeholder="Enter news text here (minimum 30 words)..."
           rows="6"
-          className="flex-1 p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors resize-none"
+          className="w-full max-w-xl p-4 border border-gray-300 rounded-lg shadow-lg bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors resize-none"
+          style={{
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '16px',
+            lineHeight: '1.5',
+          }}
         />
-        
+
         <button
           onClick={handlePredict}
           disabled={loading || llmLoading}
-          className={`w-full md:w-1/3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition-transform transform ${
+          className={`w-full max-w-sm bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition-transform transform ${
             loading || llmLoading ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:scale-105'
           }`}
         >
           {loading ? 'Generating...' : 'Generate Prediction'}
         </button>
       </div>
-      
+
       {generatedOhlcv.length > 0 && (
         <div className="mt-10">
           <h2 className="text-2xl font-bold mb-6 text-blue-800">Generated OHLCV Data</h2>
           <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={generatedOhlcv.map((value, i) => ({ name: columnNames[i] || `Point ${i + 1}`, value }))}>              <XAxis dataKey="name" tick={{ fill: '#4b5563' }} />
+            <LineChart
+              data={generatedOhlcv.map((value, i) => ({
+                name: columnNames[i] || `Point ${i + 1}`,
+                value,
+              }))}
+            >
+              <XAxis dataKey="name" tick={{ fill: '#4b5563' }} />
               <YAxis tick={{ fill: '#4b5563' }} />
               <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
               <Tooltip
@@ -107,22 +118,37 @@ const StockPredictor = () => {
                 iconSize={10}
                 itemStyle={{ color: '#4b5563', fontWeight: 500 }}
               />
-              <Line type="monotone" dataKey="value" stroke="#2563eb" activeDot={{ r: 8, fill: '#2563eb', stroke: '#fff' }} />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#2563eb"
+                activeDot={{ r: 8, fill: '#2563eb', stroke: '#fff' }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
       )}
-      
+
       {llmLoading && (
         <div className="mt-8 text-gray-500 italic text-center">
           Waiting for LLM response...
         </div>
       )}
-      
+
       {summary && !llmLoading && (
-        <div className="mt-10">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">Generated Summary</h2>
-          <p className="text-gray-700 text-lg leading-relaxed">{summary}</p>
+        <div
+          className="mt-10 p-6 rounded-lg border-2 border-blue-800 bg-blue-50 shadow-lg"
+          style={{
+            maxWidth: '600px',
+            margin: '0 auto',
+          }}
+        >
+          <h2 className="text-2xl font-bold mb-4 text-blue-800 text-center">
+            Generated Summary
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed text-justify">
+            {summary}
+          </p>
         </div>
       )}
     </div>
